@@ -26,10 +26,17 @@ def get_good_html(file_like_object):
 def get_pics_list(soup):
     #[ (referrer, url), ...]
     # We can implement handle for each image server
-    find_ahref_in_soup = soup.find('div',{'class':'post'}).find_all('a')
+    find_ahref_in_soup = soup.find(
+        'div',{'class':'post'}
+    ).find_all('a')
     if find_ahref_in_soup:
         print 'Found ahref in soup.[oozha.com]'
-        return [(a.attrs['href'], a.findChild('img').attrs['src']) for a in find_ahref_in_soup if a.findChild('img')]
+        return [
+            (
+                a.attrs['href'], 
+                a.findChild('img').attrs['src']
+            ) for a in find_ahref_in_soup if a.findChild('img')
+        ]
 
     find_img_in_soup = soup.find_all('img',{'class':'bbc_img'})
     if find_img_in_soup:
